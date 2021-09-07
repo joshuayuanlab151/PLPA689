@@ -192,6 +192,7 @@ summary {
 <li><a href="#get-some-help">Get some help</a></li>
 <li><a href="#data-and-data-structures">Data and data structures</a></li>
 <li><a href="#write-data-into-files">Write data into files</a></li>
+<li><a href="#generate-plots">Generate plots</a></li>
 </ul>
 </div>
 <div id="set-working-directory" class="section level1">
@@ -231,7 +232,6 @@ library(&quot;DESeq2&quot;)</code></pre>
 <li>The <code>?</code> function.
 <ul>
 <li><code>?install.packages</code></li>
-<li><strong>?`?`</strong>, <strong>?`+`</strong></li>
 <li><code>?`?`</code></li>
 <li><code>?`+`</code></li>
 </ul></li>
@@ -268,14 +268,7 @@ read.csv('PBSC-tab.txt', sep = '\t') # change the default delimiter.
 read.csv('PBSC-comma.txt', header=FALSE)</code></pre>
 <pre class="r"><code>read.table('PBSC-tab.txt', header=TRUE) # does the header argument work?
 # open the file and see what the first line look like.
-read.table('PBSC-tab.txt', header=TRUE, comment.char = '') # change the default comment character
-
-# an example use case: load gtf file
-read.table('Arabidopsis_thaliana.h20.gtf', header=FALSE, sep='\t', 
-         comment.char = '')
-
-read.table('Arabidopsis_thaliana.h20.gtf', header=FALSE, sep='\t', 
-         comment.char = '#')</code></pre>
+read.table('PBSC-tab.txt', header=TRUE, comment.char = '') # change the default comment character</code></pre>
 <hr>
 <div id="exercise" class="section level3">
 <h3>Exercise</h3>
@@ -310,12 +303,10 @@ assign(x = 'my_data', value = 3:8)
 my_data
 
 # some variable names that you should probably never use.
-assign(x = '2021', value = 1:10)
-'2017'
 get('2021')
-
-assign(x = '#', value = 'this is my value')
-get('#')</code></pre>
+assign(x = '2021', value = 1:10)
+'2021'
+get('2021')</code></pre>
 <ul>
 <li>Assign the imported data to a variable.</li>
 </ul>
@@ -465,15 +456,6 @@ my_template['a']
 my_template[c('g','g','a','c')] 
 
 my_template[my_sequence] # yeah!</code></pre>
-<hr>
-</div>
-<div id="exercises" class="section level3">
-<h3>Exercises</h3>
-<ul>
-<li>Create a few numeric or character vectors and try to extract some elements from the vectors.</li>
-<li>Assign names to vector elements and extract elements by names.</li>
-</ul>
-<hr>
 </div>
 <div id="subsetting-data-frames" class="section level3">
 <h3>subsetting data frames</h3>
@@ -640,6 +622,30 @@ write.csv(x = mtcars, file = 'mtcars.csv')
 # of course you can save the data into a csv file
 write.table(x = mtcars, file = 'mtcars.csv', col.names = TRUE, row.names = TRUE)
 write.table(x = mtcars, file = 'mtcars_2.csv', col.names = FALSE, row.names = FALSE)</code></pre>
+</div>
+<div id="generate-plots" class="section level2">
+<h2>Generate plots</h2>
+<ul>
+<li>A histogram</li>
+</ul>
+<pre class="r"><code>hist(mtcars$cyl)
+# Let's relable the title
+hist(mtcars$mpg,main = &quot;Miles per Gallon&quot;)</code></pre>
+<ul>
+<li>Plot with ggplot2</li>
+</ul>
+<pre class="r"><code>library(&quot;ggplot2&quot;)
+ggplot(data=mtcars, aes(x=mpg)) + geom_histogram()</code></pre>
+<p>Let's adjust the plot</p>
+<pre class="r"><code># adjust bin size
+ggplot(data=mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5)
+# edit axis
+ggplot(data=mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5) +
+  labs(x= &quot;Miles per Gallon&quot;, y = &quot;Number of Cars&quot;)
+# adjust the plot background
+ggplot(data=mtcars, aes(x=mpg)) + geom_histogram(binwidth = 5) +
+  labs(x= &quot;Miles per Gallon&quot;, y = &quot;Number of Cars&quot;) +
+  theme_bw()</code></pre>
 </div>
 </div>
 
