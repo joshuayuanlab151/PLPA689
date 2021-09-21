@@ -1,0 +1,57 @@
+---
+title: "phyTree"
+author: "Jiali"
+date: "9/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Set up working directory
+
+Find out the `tree data` from Clusteral Omega is downloaded. And set the working directory to the folder stored the tree data. 
+
+```{r workingdirectory}
+setwd("~/Desktop/Jiali/TAMU/689")
+```
+
+## Process tree data
+```{r ggtree}
+# install ggtree
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+BiocManager::install("ggtree")
+
+# load the package
+library(ggtree)
+
+# Read tree data into avariable
+tree <- read.tree("tree.dnd")
+
+# plot the most simple tree
+ggtree(tree) # basic tree without label
+```
+
+## Modify the tree plot
+
+We can modify the plot, for example: 
+
+#### add protein names on
+
+```{r pressure}
+ggtree(tree) +theme_tree() +  geom_tiplab(linesize=.5)+
+  xlim(0, 0.7)
+```
+
+#### change the tree shape
+```{r tree}
+ggtree(tree,layout = "fan") +  geom_tiplab2() +theme_tree() +xlim(0, 0.9)
+```
+
+Save the plot in pdf format
+```{r}
+ggsave("Prx.tree.pdf", width = 6, height = 6)
+```
