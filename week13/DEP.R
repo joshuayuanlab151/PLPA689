@@ -1,4 +1,3 @@
-setwd("~/Desktop/Jiali/TAMU/xiaohan/")
 library("DEP")
 library(dplyr)
 library(ggplot2)
